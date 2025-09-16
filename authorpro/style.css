@@ -4,7 +4,7 @@ Theme URI: https://example.com/authorpro-theme
 Author: Jules
 Author URI: https://example.com
 Description: A personal theme for authors and writers to showcase their books and connect with readers.
-Version: 1.0.7
+Version: 1.0.8
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: custom-background, custom-logo, custom-menu, featured-images, theme-options, threaded-comments, translation-ready
@@ -60,7 +60,6 @@ img { max-width: 100%; height: auto; border-radius: var(--border-radius); }
 2.0 Layout & Structure
 --------------------------------------------------------------*/
 .container { max-width: 1200px; margin-left: auto; margin-right: auto; padding: 0 var(--spacing-base); }
-.container-narrow { max-width: 800px; }
 .site-main { padding: calc(var(--spacing-base) * 2) 0; }
 .page-header { margin-bottom: calc(var(--spacing-base) * 2); padding-bottom: var(--spacing-base); border-bottom: 1px solid var(--color-border); }
 
@@ -86,14 +85,50 @@ h4, .h4 { font-size: 1.8rem; }
 /*--------------------------------------------------------------
 5.0 Header & Navigation
 --------------------------------------------------------------*/
-.site-header { padding: 20px 0; background: #fff; border-bottom: 1px solid var(--color-border); }
-.site-header .container { display: flex; justify-content: space-between; align-items: center; }
+.site-header {
+    padding: 20px 0;
+    background: #fff;
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-branding {
+    flex-shrink: 0;
+}
 .site-branding .custom-logo { max-height: 60px; }
 .site-title a { font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-text); }
-.header-right-group { display: flex; align-items: center; gap: 30px; }
-.menu-toggle, .mobile-cta-button { display: none; }
-.main-navigation ul { margin: 0; padding: 0; list-style: none; display: flex; gap: 25px; }
-.main-navigation a { font-family: var(--font-heading); font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+
+.header-right-group {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.main-navigation ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex; /* This makes the menu horizontal on desktop */
+    gap: 25px;
+}
+
+.main-navigation a {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.menu-toggle, .mobile-cta-button {
+    display: none; /* Hidden on desktop */
+}
 
 /*--------------------------------------------------------------
 6.0 Homepage Sections
@@ -101,48 +136,30 @@ h4, .h4 { font-size: 1.8rem; }
 .homepage-section { padding: calc(var(--spacing-base) * 2.5) 0; }
 .homepage-section:nth-child(odd) { background-color: var(--color-light-gray); }
 .section-headline { text-align: center; margin-bottom: var(--spacing-base); }
-
 .hero-section { text-align: center; }
-.hero-section .hero-image { max-width: 180px; border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: var(--spacing-base); }
-.hero-section .hero-headline { margin: 0 0 10px; }
-.hero-section .hero-tagline { font-size: 1.2rem; color: #555; }
-
 .featured-book-inner { display: flex; align-items: center; text-align: left; gap: calc(var(--spacing-base) * 2.5); }
-.featured-book-cover { flex: 0 0 320px; }
-.featured-book-cover img { box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
-
 .promotional-section, .newsletter-cta-section { text-align: center; }
-.promotional-section .container, .newsletter-cta-section .container { max-width: 800px; }
 
 /*--------------------------------------------------------------
 7.0 Cards
 --------------------------------------------------------------*/
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--spacing-base); }
-.card { background: #fff; border-radius: var(--border-radius); box-shadow: 0 5px 25px rgba(0,0,0,0.07); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
-.card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.card { background: #fff; border-radius: var(--border-radius); box-shadow: 0 5px 25px rgba(0,0,0,0.07); overflow: hidden; }
 .card-content { padding: var(--spacing-base); }
 .card-title { margin-top: 0; font-size: 1.5rem; }
-.card-excerpt { font-size: 0.95rem; }
 
 /*--------------------------------------------------------------
 8.0 CPT Archives (Books & Events)
 --------------------------------------------------------------*/
 .event-item { display: flex; gap: var(--spacing-base); align-items: flex-start; padding: var(--spacing-base) 0; border-bottom: 1px solid var(--color-border); }
 .event-item .event-image { flex: 0 0 300px; }
-.event-item .event-details { flex: 1; }
-.event-item .entry-title { margin-top: 0; }
 
 /*--------------------------------------------------------------
 9.0 Single Posts (Book & Event)
 --------------------------------------------------------------*/
 .book-single .book-main-content { display: flex; gap: calc(var(--spacing-base) * 2); }
 .book-cover-column { flex: 0 0 40%; }
-.book-details-column { flex: 1; }
-.book-single .entry-title { margin-top: 0; }
 .purchase-links-wrapper { background: var(--color-light-gray); padding: var(--spacing-base); border-radius: var(--border-radius); margin: var(--spacing-base) 0; text-align: center; }
-.purchase-links-wrapper h3 { margin-top: 0; font-size: 1.5rem; }
-.purchase-links .button { display: block; margin-bottom: 1rem; }
-.book-additional-info { margin-top: var(--spacing-base); }
 .author-box { display: flex; align-items: center; gap: 20px; background: var(--color-light-gray); padding: 20px; border-radius: var(--border-radius); }
 
 /*--------------------------------------------------------------
@@ -156,21 +173,77 @@ h4, .h4 { font-size: 1.8rem; }
 .site-footer { background: var(--color-dark-gray); color: #fff; padding: var(--spacing-base) 0; font-size: 0.9rem; }
 .site-footer a { color: #fff; opacity: 0.8; }
 .site-footer a:hover { opacity: 1; text-decoration: none; }
-.footer-widgets { padding-bottom: var(--spacing-base); border-bottom: 1px solid #555; margin-bottom: var(--spacing-base); }
+.footer-widgets {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(var(--spacing-base) * 2);
+    padding-bottom: var(--spacing-base);
+    border-bottom: 1px solid #555;
+    margin-bottom: var(--spacing-base);
+}
 .site-footer .site-info { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
 .footer-social-links a { margin-left: 15px; }
 
 /*--------------------------------------------------------------
 12.0 Media Queries
 --------------------------------------------------------------*/
-@media (max-width: 768px) {
-    .site-header .container { flex-wrap: wrap; }
-    .header-right-group { order: 2; width: 100%; justify-content: space-between; margin-top: 20px; }
-    .site-branding { order: 1; flex-grow: 1; }
-    .main-navigation { display: none; }
-    .main-navigation.toggled { display: block; order: 3; width: 100%; background: #fff; padding: 20px; margin-top: 20px; }
-    .main-navigation.toggled ul { display: flex; flex-direction: column; gap: 15px; align-items: center; }
-    .menu-toggle { display: block; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
-    .mobile-cta-button { display: inline-block; font-size: 0.8rem; padding: 8px 12px; }
-    .book-single .book-main-content, .event-item, .featured-book-inner { flex-direction: column; }
+@media (max-width: 900px) {
+    .footer-widgets {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 782px) {
+    .site-header .container {
+        flex-wrap: wrap;
+    }
+    .header-right-group {
+        order: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-grow: 1;
+    }
+    .site-branding {
+        order: 1;
+        margin-right: auto;
+    }
+    .main-navigation {
+        display: none; /* Hide desktop nav menu wrapper */
+        order: 3;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .main-navigation.toggled {
+        display: block; /* Show the wrapper when toggled */
+    }
+    .main-navigation.toggled ul {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        background: #fff;
+        padding: 20px;
+        border-top: 1px solid var(--color-border);
+    }
+    .menu-toggle {
+        display: block; /* Show hamburger button */
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-left: 15px;
+    }
+    .mobile-cta-button {
+        display: inline-block; /* Show mobile CTA */
+        font-size: 0.8rem;
+        padding: 8px 12px;
+        margin-left: 15px;
+    }
+    .book-single .book-main-content, .event-item, .featured-book-inner {
+        flex-direction: column;
+    }
+    .footer-widgets {
+        grid-template-columns: 1fr;
+    }
 }

@@ -12,11 +12,20 @@
 ?>
 
 	<footer id="colophon" class="site-footer">
-        <?php if ( is_active_sidebar( 'footer-1' ) ) : ?>
-            <div class="footer-widgets container">
-                <?php dynamic_sidebar( 'footer-1' ); ?>
+        <div class="footer-widgets container">
+            <div class="footer-widget-area">
+                <?php if ( is_active_sidebar( 'footer-1' ) ) { dynamic_sidebar( 'footer-1' ); } ?>
             </div>
-        <?php endif; ?>
+            <div class="footer-widget-area">
+                <?php if ( is_active_sidebar( 'footer-2' ) ) { dynamic_sidebar( 'footer-2' ); } ?>
+            </div>
+            <div class="footer-widget-area">
+                <?php if ( is_active_sidebar( 'footer-3' ) ) { dynamic_sidebar( 'footer-3' ); } ?>
+            </div>
+            <div class="footer-widget-area">
+                <?php if ( is_active_sidebar( 'footer-4' ) ) { dynamic_sidebar( 'footer-4' ); } ?>
+            </div>
+        </div>
 
 		<div class="site-info-wrapper">
             <div class="site-info container">
