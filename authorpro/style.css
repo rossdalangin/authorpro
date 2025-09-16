@@ -1,0 +1,322 @@
+/*
+Theme Name: AuthorPro
+Theme URI: https://example.com/authorpro-theme
+Author: Jules
+Author URI: https://example.com
+Description: A personal theme for authors and writers to showcase their books and connect with readers.
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: custom-background, custom-logo, custom-menu, featured-images, theme-options, threaded-comments, translation-ready
+Text Domain: authorpro
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1.0 Generic
+2.0 Layout & Structure
+3.0 Header
+4.0 Navigation
+5.0 Homepage Sections
+6.0 CPT Archives (Books & Events)
+7.0 Single Posts (Book & Event)
+8.0 Footer
+9.0 Media Queries
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+1.0 Generic
+--------------------------------------------------------------*/
+body {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #333;
+    background-color: #fdfdfd;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: #7f8c8d; /* Default Accent */
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover,
+a:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+
+.button,
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-family: 'Lora', serif;
+    background-color: #7f8c8d; /* Default Accent */
+    color: #fff;
+    border: 1px solid #7f8c8d; /* Default Accent */
+    border-radius: 3px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.button:hover,
+button:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover {
+    background-color: #6c7a7b;
+    color: #fff;
+}
+
+/*--------------------------------------------------------------
+2.0 Layout & Structure
+--------------------------------------------------------------*/
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.site {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.site-main {
+    flex-grow: 1;
+    padding: 40px 0;
+}
+
+/*--------------------------------------------------------------
+3.0 Header
+--------------------------------------------------------------*/
+.site-header {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.site-branding {
+    text-align: left;
+}
+
+.site-title a {
+    font-size: 24px;
+    font-family: 'Playfair Display', serif;
+    color: #333;
+    text-decoration: none;
+}
+
+.site-description {
+    font-size: 14px;
+    color: #777;
+}
+
+/*--------------------------------------------------------------
+4.0 Navigation
+--------------------------------------------------------------*/
+.main-navigation ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.main-navigation li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.main-navigation a {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+/*--------------------------------------------------------------
+5.0 Homepage Sections
+--------------------------------------------------------------*/
+.homepage-section {
+    padding: 60px 0;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.homepage-section .section-headline {
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+.hero-section .hero-image {
+    max-width: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.hero-section .hero-headline {
+    margin-top: 0;
+}
+
+.hero-section .hero-tagline {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #555;
+}
+
+.featured-book-inner {
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+.featured-book-cover {
+    flex: 0 0 300px;
+    margin-right: 40px;
+}
+
+.featured-book-details .purchase-links .button {
+    margin-right: 10px;
+}
+
+/*--------------------------------------------------------------
+6.0 CPT Archives (Books & Events)
+--------------------------------------------------------------*/
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.book-item .book-cover img {
+    width: 100%;
+    height: auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.book-item:hover .book-cover img {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.book-item .book-title {
+    margin-top: 15px;
+    font-size: 1.2rem;
+}
+
+.events-list .event-item {
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+}
+
+/*--------------------------------------------------------------
+7.0 Single Posts (Book & Event)
+--------------------------------------------------------------*/
+.book-single .book-main-content {
+    display: flex;
+    align-items: flex-start;
+}
+
+.book-cover-column {
+    flex: 0 0 40%;
+    margin-right: 40px;
+}
+
+.book-details-column {
+    flex: 1;
+}
+
+.book-single .entry-title {
+    margin-top: 0;
+}
+
+.book-meta {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.book-meta span {
+    display: block;
+}
+
+.purchase-links .button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.book-additional-info {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid #eee;
+}
+
+/*--------------------------------------------------------------
+8.0 Footer
+--------------------------------------------------------------*/
+.site-footer {
+    background: #f5f5f5;
+    padding: 40px 0;
+    margin-top: 40px;
+    font-size: 14px;
+    color: #777;
+}
+
+.site-footer .site-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/*--------------------------------------------------------------
+9.0 Media Queries
+--------------------------------------------------------------*/
+@media (max-width: 768px) {
+    .site-header, .featured-book-inner, .book-single .book-main-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .main-navigation {
+        margin-top: 20px;
+    }
+
+    .main-navigation li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .featured-book-cover, .book-cover-column {
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+}
