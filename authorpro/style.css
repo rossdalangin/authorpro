@@ -4,7 +4,7 @@ Theme URI: https://example.com/authorpro-theme
 Author: Jules
 Author URI: https://example.com
 Description: A personal theme for authors and writers to showcase their books and connect with readers.
-Version: 1.0.9
+Version: 1.1.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: custom-background, custom-logo, custom-menu, featured-images, theme-options, threaded-comments, translation-ready
@@ -159,42 +159,41 @@ h4, .h4 { font-size: 1.8rem; }
 }
 
 @media (max-width: 782px) {
-    .site-header .container { flex-wrap: wrap; }
-    .header-right-group { order: 2; display: flex; align-items: center; justify-content: flex-end; flex-grow: 1; }
-    .site-branding { order: 1; margin-right: auto; }
-
-    /* The crucial fix: hide the UL, not the whole NAV */
-    .main-navigation ul {
-        display: none;
+    /* --- Mobile Header --- */
+    .site-header .container {
+        flex-wrap: wrap;
     }
-    .main-navigation {
-        order: 3;
+    .header-right-group {
+        margin-left: auto; /* Push to the right */
+    }
+    .main-navigation ul {
+        display: none; /* Hide desktop menu items by default */
+    }
+    .main-navigation.toggled {
+        position: absolute;
+        top: 100%;
+        left: 0;
         width: 100%;
-        margin-top: 20px;
+        background: #fff;
+        z-index: 100;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     .main-navigation.toggled ul {
         display: flex;
         flex-direction: column;
-        gap: 15px;
         align-items: center;
-        background: #fff;
-        padding: 20px;
-        border-top: 1px solid var(--color-border);
+        padding: var(--spacing-base);
     }
     .menu-toggle {
-        display: block; /* Show hamburger button */
+        display: block;
         background: none;
         border: none;
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+        color: var(--color-text);
         cursor: pointer;
-        margin-left: 15px;
     }
-    .mobile-cta-button {
-        display: inline-block; /* Show mobile CTA */
-        font-size: 0.8rem;
-        padding: 8px 12px;
-        margin-left: 15px;
-    }
+
+    /* --- General Layout --- */
     .book-single .book-main-content, .event-item, .featured-book-inner, .content-sidebar-wrap { flex-direction: column; }
     .footer-widgets { grid-template-columns: 1fr; }
 }
