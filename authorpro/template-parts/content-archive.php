@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying posts in a grid, similar to books.
+ * Template part for displaying posts in a masonry grid.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -9,17 +9,25 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'grid-item' ); ?>>
-    <a href="<?php the_permalink(); ?>" class="grid-item-link">
-        <?php if ( has_post_thumbnail() ) : ?>
-            <div class="grid-item-image">
-                <?php the_post_thumbnail( 'large' ); ?>
-            </div>
-        <?php else : ?>
-            <div class="grid-item-image-placeholder">
-                <span><?php the_title(); ?></span>
-            </div>
-        <?php endif; ?>
-        <h2 class="grid-item-title"><?php the_title(); ?></h2>
-    </a>
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'masonry-item card' ); ?>>
+    <?php if( has_post_thumbnail() ) : ?>
+        <a href="<?php the_permalink(); ?>" class="card-image-link">
+            <?php the_post_thumbnail('large'); ?>
+        </a>
+    <?php endif; ?>
+
+	<div class="card-content">
+        <header class="entry-header">
+            <?php
+            the_title( '<h2 class="entry-title card-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+            ?>
+            <div class="entry-meta">
+                <span><?php the_date(); ?></span>
+            </div><!-- .entry-meta -->
+        </header><!-- .entry-header -->
+
+        <div class="entry-summary card-excerpt">
+            <?php the_excerpt(); ?>
+        </div><!-- .entry-summary -->
+    </div><!-- .card-content -->
 </article><!-- #post-<?php the_ID(); ?> -->

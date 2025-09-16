@@ -146,7 +146,9 @@ function authorpro_scripts() {
 
     // Enqueue scripts for masonry blog layout
     if ( is_home() || is_archive() ) {
-        wp_enqueue_script( 'authorpro-load-more', get_template_directory_uri() . '/js/load-more.js', array('jquery'), AUTHORPRO_VERSION, true );
+        wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js', array('jquery'), null, true );
+        wp_enqueue_script( 'masonry', 'https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js', array('jquery'), null, true );
+        wp_enqueue_script( 'authorpro-load-more', get_template_directory_uri() . '/js/load-more.js', array('jquery', 'masonry'), AUTHORPRO_VERSION, true );
 
         // Pass data to the script
         global $wp_query;
