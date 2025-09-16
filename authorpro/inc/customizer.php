@@ -79,9 +79,38 @@ function authorpro_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'authorpro_newsletter_embed', array( 'sanitize_callback' => 'wp_kses_post' ) );
     $wp_customize->add_control( 'authorpro_newsletter_embed', array( 'label' => __( 'Newsletter Form Embed Code', 'authorpro' ), 'section' => 'authorpro_newsletter_section', 'type' => 'textarea', 'description' => __( 'Paste your HTML embed code from your newsletter service (e.g., Mailchimp, ConvertKit). Some script tags may be filtered for security.', 'authorpro' ) ) );
 
+    // --- Promotional Section ---
+    $wp_customize->add_section( 'authorpro_promotional_section', array( 'title' => __( 'Promotional Section', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
+    $add_section_controls( 'promotional', 60 );
+    $wp_customize->add_setting( 'authorpro_promotional_headline', array( 'default' => __( 'A Note from the Author', 'authorpro' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
+    $wp_customize->add_control( 'authorpro_promotional_headline', array( 'label' => __( 'Headline', 'authorpro' ), 'section' => 'authorpro_promotional_section' ) );
+    $wp_customize->add_setting( 'authorpro_promotional_content', array( 'default' => '', 'sanitize_callback' => 'wp_kses_post' ) );
+    $wp_customize->add_control( new WP_Customize_Editor_Control( $wp_customize, 'authorpro_promotional_content', array(
+        'label'   => __( 'Promotional Content', 'authorpro' ),
+        'section' => 'authorpro_promotional_section',
+    ) ) );
+
     // --- Theme Options Panel ---
     $wp_customize->add_panel( 'authorpro_theme_options_panel', array( 'title' => __( 'Theme Options', 'authorpro' ), 'priority' => 11 ) );
-    // ... (rest of the theme options code is the same)
+
+    // --- Header Settings Section ---
+    $wp_customize->add_section( 'authorpro_header_section', array(
+        'title'    => __( 'Header Settings', 'authorpro' ),
+        'panel'    => 'authorpro_theme_options_panel',
+    ) );
+    $wp_customize->add_setting( 'authorpro_mobile_cta_text', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+    $wp_customize->add_control( 'authorpro_mobile_cta_text', array(
+        'label'   => __( 'Mobile CTA Button Text', 'authorpro' ),
+        'section' => 'authorpro_header_section',
+        'type'    => 'text',
+    ) );
+    $wp_customize->add_setting( 'authorpro_mobile_cta_url', array( 'sanitize_callback' => 'esc_url_raw' ) );
+    $wp_customize->add_control( 'authorpro_mobile_cta_url', array(
+        'label'   => __( 'Mobile CTA Button URL', 'authorpro' ),
+        'section' => 'authorpro_header_section',
+        'type'    => 'url',
+    ) );
+
     // --- Colors Section ---
     $wp_customize->add_section( 'authorpro_colors_section', array( 'title' => __( 'Colors', 'authorpro' ), 'panel' => 'authorpro_theme_options_panel' ) );
     $wp_customize->add_setting( 'authorpro_accent_color', array( 'default' => '#7f8c8d', 'sanitize_callback' => 'sanitize_hex_color' ) );

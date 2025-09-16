@@ -48,17 +48,19 @@ get_header();
                         <?php the_content(); ?>
                     </div>
 
-                    <div class="purchase-links">
+                    <div class="purchase-links-wrapper">
                         <h3><?php esc_html_e( 'Buy Now', 'authorpro' ); ?></h3>
-                        <?php
-                        for ( $i = 1; $i <= 3; $i++ ) {
-                            $store_name = get_post_meta( get_the_ID(), '_purchase_store_' . $i, true );
-                            $store_url  = get_post_meta( get_the_ID(), '_purchase_url_' . $i, true );
-                            if ( ! empty( $store_name ) && ! empty( $store_url ) ) {
-                                printf( '<a href="%s" class="button purchase-button" target="_blank" rel="noopener noreferrer">%s</a>', esc_url( $store_url ), esc_html( $store_name ) );
+                        <div class="purchase-links">
+                            <?php
+                            for ( $i = 1; $i <= 3; $i++ ) {
+                                $store_name = get_post_meta( get_the_ID(), '_purchase_store_' . $i, true );
+                                $store_url  = get_post_meta( get_the_ID(), '_purchase_url_' . $i, true );
+                                if ( ! empty( $store_name ) && ! empty( $store_url ) ) {
+                                    printf( '<a href="%s" class="button purchase-button" target="_blank" rel="noopener noreferrer">%s</a>', esc_url( $store_url ), esc_html( $store_name ) );
+                                }
                             }
-                        }
-                        ?>
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -19,6 +19,7 @@ get_header();
         'featured_book',
         'events',
         'blog',
+        'promotional',
         'newsletter',
     );
 

@@ -92,7 +92,7 @@ add_action( 'widgets_init', 'authorpro_widgets_init' );
  */
 function authorpro_scripts() {
 	// Enqueue Google Fonts
-    wp_enqueue_style( 'authorpro-fonts', 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700&display=swap', array(), null );
+    wp_enqueue_style( 'authorpro-fonts', 'https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@700&display=swap', array(), null );
 
     // Enqueue main stylesheet
 	wp_enqueue_style( 'authorpro-style', get_stylesheet_uri(), array(), AUTHORPRO_VERSION );
