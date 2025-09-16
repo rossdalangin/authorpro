@@ -1,23 +1,13 @@
 /**
  * File load-more.js
  *
- * Handles AJAX loading of more posts and masonry layout.
+ * Handles AJAX loading of more posts.
  */
 (function ($) {
     $(function () {
-        // Initialize Masonry
-        var $grid = $('.masonry-grid').imagesLoaded(function () {
-            $grid.masonry({
-                itemSelector: '.masonry-item',
-                percentPosition: true
-            });
-        });
-
         var canBeLoaded = true, // this param allows to initiate the AJAX call only if necessary
-            bottomOffset = 2000; // the distance (in px) from the page bottom when you want to load more posts
-
-        var button = $('.load-more-button');
-        var container = $('.masonry-grid');
+            button = $('.load-more-button'),
+            container = $('.masonry-grid'); // Keep the container class for consistency
 
         button.on('click', function () {
             if (authorpro_loadmore_params.current_page != authorpro_loadmore_params.max_page && canBeLoaded == true) {
@@ -35,16 +25,13 @@
                     },
                     success: function (data) {
                         if (data) {
-                            var $newItems = $(data);
-                            container.append($newItems);
-
-                            container.imagesLoaded(function () {
-                                container.masonry('appended', $newItems, true);
-                            });
+                            // Append new posts
+                            container.append(data);
 
                             authorpro_loadmore_params.current_page++;
                             button.text('Load More');
                             canBeLoaded = true;
+
                             if (authorpro_loadmore_params.current_page == authorpro_loadmore_params.max_page) {
                                 button.remove();
                             }

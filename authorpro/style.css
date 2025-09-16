@@ -4,7 +4,7 @@ Theme URI: https://example.com/authorpro-theme
 Author: Jules
 Author URI: https://example.com
 Description: A personal theme for authors and writers to showcase their books and connect with readers.
-Version: 1.1.2
+Version: 1.1.3
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: custom-background, custom-logo, custom-menu, featured-images, theme-options, threaded-comments, translation-ready
@@ -20,7 +20,7 @@ Text Domain: authorpro
 4.0 Forms & Buttons
 5.0 Header & Navigation
 6.0 Homepage Sections
-7.0 Cards & Masonry
+7.0 Cards & Grids
 8.0 CPT Archives (Books & Events)
 9.0 Single Posts (Book & Event)
 10.0 Comments / Reviews
@@ -97,29 +97,14 @@ h4, .h4 { font-size: 1.8rem; }
 .main-navigation a { font-family: var(--font-heading); font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
 .menu-toggle { display: none; }
 .mobile-cta-button { display: none; }
-
-.menu-toggle {
-    width: 24px;
-    height: 20px;
-    position: relative;
-}
-.hamburger-bar {
-    display: block;
-    width: 100%;
-    height: 3px;
-    background-color: var(--color-text);
-    position: absolute;
-    left: 0;
-    transition: all 0.3s;
-}
+.menu-toggle { width: 24px; height: 20px; position: relative; }
+.hamburger-bar { display: block; width: 100%; height: 3px; background-color: var(--color-text); position: absolute; left: 0; transition: all 0.3s; }
 .hamburger-bar:nth-child(1) { top: 0; }
 .hamburger-bar:nth-child(2) { top: 50%; transform: translateY(-50%); }
 .hamburger-bar:nth-child(3) { bottom: 0; }
-
 .toggled .hamburger-bar:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
 .toggled .hamburger-bar:nth-child(2) { opacity: 0; }
 .toggled .hamburger-bar:nth-child(3) { bottom: 50%; transform: translateY(50%) rotate(-45deg); }
-
 
 /*--------------------------------------------------------------
 6.0 Homepage Sections
@@ -138,11 +123,19 @@ h4, .h4 { font-size: 1.8rem; }
 .promotional-section, .newsletter-cta-section { text-align: center; }
 
 /*--------------------------------------------------------------
-7.0 Cards & Masonry
+7.0 Cards & Grids
 --------------------------------------------------------------*/
-.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--spacing-base); }
-.masonry-grid { /* Masonry JS will apply positioning */ }
-.card, .masonry-item { background: #fff; border-radius: var(--border-radius); box-shadow: 0 5px 25px rgba(0,0,0,0.07); overflow: hidden; margin-bottom: var(--spacing-base); }
+.card-grid, .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-base);
+}
+.card, .masonry-item {
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+    overflow: hidden;
+}
 .load-more-container { text-align: center; padding: var(--spacing-base) 0; }
 .card-content { padding: var(--spacing-base); }
 .card-title { margin-top: 0; font-size: 1.5rem; }
@@ -186,7 +179,6 @@ h4, .h4 { font-size: 1.8rem; }
 --------------------------------------------------------------*/
 @media (max-width: 900px) {
     .footer-widgets { grid-template-columns: repeat(2, 1fr); }
-    .masonry-item { width: calc(50% - 30px); }
 }
 
 @media (max-width: 782px) {
@@ -202,5 +194,4 @@ h4, .h4 { font-size: 1.8rem; }
     /* --- General Layout --- */
     .book-single .book-main-content, .event-item, .featured-book-inner, .content-sidebar-wrap { flex-direction: column; }
     .footer-widgets { grid-template-columns: 1fr; }
-    .masonry-item { width: 100%; margin: 0 0 30px; }
 }
