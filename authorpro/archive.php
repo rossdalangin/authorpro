@@ -21,7 +21,7 @@ get_header();
                 </header><!-- .page-header -->
 
                 <?php if ( have_posts() ) : ?>
-                    <div class="masonry-grid">
+                    <div class="post-grid">
                         <?php
                         /* Start the Loop */
                         while ( have_posts() ) :
