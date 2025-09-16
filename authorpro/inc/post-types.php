@@ -104,7 +104,7 @@ function authorpro_register_post_types() {
 		'label'                 => __( 'Event', 'authorpro' ),
 		'description'           => __( 'A post type for events.', 'authorpro' ),
 		'labels'                => $labels_event,
-		'supports'              => array( 'title', 'editor' ),
+		'supports'              => array( 'title', 'editor', 'thumbnail' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,

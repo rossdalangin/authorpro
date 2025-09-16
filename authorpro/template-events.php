@@ -12,11 +12,11 @@ get_header();
 
 <main id="primary" class="site-main">
 
-    <header class="page-header">
+    <header class="page-header container">
         <h1 class="page-title"><?php the_title(); ?></h1>
     </header>
 
-    <div class="events-list">
+    <div class="events-list container">
         <?php
         $today = date( 'Y-m-d H:i:s' );
         $events_query = new WP_Query( array(
@@ -40,11 +40,21 @@ get_header();
                 $events_query->the_post();
                 ?>
                 <article id="post-<?php the_ID(); ?>" <?php post_class( 'event-item' ); ?>>
-                    <header class="entry-header">
-                        <?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-                    </header>
-                    <div class="entry-content">
-                        <?php the_excerpt(); ?>
+                    <?php if( has_post_thumbnail() ) : ?>
+                        <div class="event-image">
+                            <a href="<?php the_permalink(); ?>">
+                                <?php the_post_thumbnail('large'); ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                    <div class="event-details">
+                        <header class="entry-header">
+                            <?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+                        </header>
+                        <div class="entry-content">
+                            <?php the_excerpt(); ?>
+                        </div>
+                        <a href="<?php the_permalink(); ?>" class="button read-more-button"><?php esc_html_e('View Event', 'authorpro'); ?></a>
                     </div>
                 </article>
                 <?php

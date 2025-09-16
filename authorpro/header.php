@@ -29,21 +29,26 @@
         <div class="container">
             <div class="site-branding">
                 <?php
-                the_custom_logo();
-                if ( is_front_page() && is_home() ) :
-                    ?>
-                    <h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-                    <?php
-                else :
-                    ?>
-                    <p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-                    <?php
-                endif;
-                $authorpro_description = get_bloginfo( 'description', 'display' );
-                if ( $authorpro_description || is_customize_preview() ) :
-                    ?>
-                    <p class="site-description"><?php echo $authorpro_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-                <?php endif; ?>
+                if ( function_exists( 'the_custom_logo' ) ) {
+                    the_custom_logo();
+                }
+                if ( display_header_text() === true || ( ! function_exists( 'has_custom_logo' ) || ! has_custom_logo() ) ) {
+                    if ( is_front_page() && is_home() ) :
+                        ?>
+                        <h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+                        <?php
+                    else :
+                        ?>
+                        <p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
+                        <?php
+                    endif;
+                    $authorpro_description = get_bloginfo( 'description', 'display' );
+                    if ( $authorpro_description || is_customize_preview() ) :
+                        ?>
+                        <p class="site-description"><?php echo $authorpro_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+                    <?php endif;
+                }
+                ?>
             </div><!-- .site-branding -->
 
             <div class="header-right-group">
@@ -58,21 +63,6 @@
                     );
                     ?>
                 </nav><!-- #site-navigation -->
-                <div class="header-social-links">
-                    <?php
-                    $social_networks = array( 'twitter', 'facebook', 'instagram', 'linkedin', 'youtube' );
-                    foreach ( $social_networks as $network ) {
-                        $url = get_theme_mod( "authorpro_social_{$network}_url" );
-                        if ( ! empty( $url ) ) {
-                            printf( '<a href="%s" target="_blank" rel="noopener noreferrer"><span class="screen-reader-text">%s</span>%s</a>',
-                                esc_url( $url ),
-                                esc_html( ucwords( $network ) ),
-                                esc_html( ucwords( $network ) ) // Placeholder, to be replaced with an icon
-                            );
-                        }
-                    }
-                    ?>
-                </div>
                 <?php
                 $cta_text = get_theme_mod( 'authorpro_mobile_cta_text' );
                 $cta_url = get_theme_mod( 'authorpro_mobile_cta_url' );
