@@ -85,10 +85,12 @@ function authorpro_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'authorpro_promotional_headline', array( 'default' => __( 'A Note from the Author', 'authorpro' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
     $wp_customize->add_control( 'authorpro_promotional_headline', array( 'label' => __( 'Headline', 'authorpro' ), 'section' => 'authorpro_promotional_section' ) );
     $wp_customize->add_setting( 'authorpro_promotional_content', array( 'default' => '', 'sanitize_callback' => 'wp_kses_post' ) );
-    $wp_customize->add_control( new WP_Customize_Editor_Control( $wp_customize, 'authorpro_promotional_content', array(
+    $wp_customize->add_control( 'authorpro_promotional_content', array(
         'label'   => __( 'Promotional Content', 'authorpro' ),
         'section' => 'authorpro_promotional_section',
-    ) ) );
+        'type'    => 'textarea',
+        'description' => __( 'You can use HTML in this field for formatting.', 'authorpro' ),
+    ) );
 
     // --- Theme Options Panel ---
     $wp_customize->add_panel( 'authorpro_theme_options_panel', array( 'title' => __( 'Theme Options', 'authorpro' ), 'priority' => 11 ) );
