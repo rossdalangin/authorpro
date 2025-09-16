@@ -96,6 +96,9 @@ function authorpro_scripts() {
 
     // Enqueue main stylesheet
 	wp_enqueue_style( 'authorpro-style', get_stylesheet_uri(), array(), AUTHORPRO_VERSION );
+
+    // Enqueue navigation script
+    wp_enqueue_script( 'authorpro-navigation', get_template_directory_uri() . '/js/navigation.js', array(), AUTHORPRO_VERSION, true );
 }
 add_action( 'wp_enqueue_scripts', 'authorpro_scripts' );
 
@@ -135,3 +138,16 @@ function authorpro_change_comments_title( $title ) {
 }
 add_filter( 'get_comments_number_text', 'authorpro_change_comments_title' );
 add_filter( 'comments_number', 'authorpro_change_comments_title' );
+
+/**
+ * Enqueue scripts for the admin area.
+ */
+function authorpro_admin_enqueue_scripts( $hook ) {
+    global $post;
+    if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+        if ( isset($post->post_type) && 'book' === $post->post_type ) {
+            wp_enqueue_editor();
+        }
+    }
+}
+add_action( 'admin_enqueue_scripts', 'authorpro_admin_enqueue_scripts' );

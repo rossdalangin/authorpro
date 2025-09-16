@@ -38,10 +38,8 @@ add_action( 'add_meta_boxes', 'authorpro_add_custom_meta_boxes' );
  * @param WP_Post $post The post object.
  */
 function authorpro_render_book_meta_box( $post ) {
-    // Add a nonce field so we can check for it later.
     wp_nonce_field( 'authorpro_save_book_details', 'authorpro_book_details_nonce' );
 
-    // Get existing values.
     $publication_date = get_post_meta( $post->ID, '_publication_date', true );
     $publisher = get_post_meta( $post->ID, '_publisher', true );
 
@@ -108,12 +106,22 @@ function authorpro_render_event_meta_box( $post ) {
 
 
 /**
- * Save meta box data.
+ * Save meta box data when a post is saved.
  *
  * @param int $post_id The ID of the post being saved.
  */
 function authorpro_save_meta_data( $post_id ) {
-    // Save Book Details
+    // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+
+    // Check the user's permissions.
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+        return;
+    }
+
+    // --- Save Book Details ---
     if ( isset( $_POST['authorpro_book_details_nonce'] ) && wp_verify_nonce( $_POST['authorpro_book_details_nonce'], 'authorpro_save_book_details' ) ) {
         if ( isset( $_POST['publication_date'] ) ) {
             update_post_meta( $post_id, '_publication_date', sanitize_text_field( $_POST['publication_date'] ) );
@@ -134,7 +142,7 @@ function authorpro_save_meta_data( $post_id ) {
         }
     }
 
-    // Save Event Details
+    // --- Save Event Details ---
     if ( isset( $_POST['authorpro_event_details_nonce'] ) && wp_verify_nonce( $_POST['authorpro_event_details_nonce'], 'authorpro_save_event_details' ) ) {
         if ( isset( $_POST['event_datetime'] ) ) {
             update_post_meta( $post_id, '_event_datetime', sanitize_text_field( $_POST['event_datetime'] ) );
