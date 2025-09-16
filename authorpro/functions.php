@@ -143,6 +143,22 @@ function authorpro_scripts() {
 
     // Enqueue navigation script
     wp_enqueue_script( 'authorpro-navigation', get_template_directory_uri() . '/js/navigation.js', array(), AUTHORPRO_VERSION, true );
+
+    // Enqueue scripts for masonry blog layout
+    if ( is_archive() ) {
+        wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js', array('jquery'), null, true );
+        wp_enqueue_script( 'masonry', 'https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js', array('jquery'), null, true );
+        wp_enqueue_script( 'authorpro-load-more', get_template_directory_uri() . '/js/load-more.js', array('jquery', 'masonry'), AUTHORPRO_VERSION, true );
+
+        // Pass data to the script
+        global $wp_query;
+        wp_localize_script( 'authorpro-load-more', 'authorpro_loadmore_params', array(
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'posts' => json_encode( $wp_query->query_vars ),
+            'current_page' => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+            'max_page' => $wp_query->max_num_pages
+        ) );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'authorpro_scripts' );
 
@@ -195,3 +211,27 @@ function authorpro_admin_enqueue_scripts( $hook ) {
     }
 }
 add_action( 'admin_enqueue_scripts', 'authorpro_admin_enqueue_scripts' );
+
+/**
+ * AJAX handler for loading more posts.
+ */
+function authorpro_loadmore_ajax_handler(){
+
+	// prepare our arguments for the query
+	$params = json_decode( stripslashes( $_POST['query'] ), true ); // query_vars from the original query
+	$params['paged'] = $_POST['page'] + 1; // we need next page to be loaded
+	$params['post_status'] = 'publish';
+
+	// it is always better to use WP_Query but not get_posts.
+	$query = new WP_Query( $params );
+
+	if( $query->have_posts() ) :
+		// run the loop
+		while( $query->have_posts() ): $query->the_post();
+			get_template_part( 'template-parts/content', 'archive' );
+		endwhile;
+	endif;
+	die; // here we exit the script and even no wp_reset_query() required!
+}
+add_action('wp_ajax_loadmore', 'authorpro_loadmore_ajax_handler');
+add_action('wp_ajax_nopriv_loadmore', 'authorpro_loadmore_ajax_handler');

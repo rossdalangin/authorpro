@@ -21,21 +21,30 @@ get_header();
                 </header><!-- .page-header -->
 
                 <?php if ( have_posts() ) : ?>
+                    <div class="masonry-grid">
+                        <?php
+                        /* Start the Loop */
+                        while ( have_posts() ) :
+                            the_post();
+
+                            /*
+                            * Include the Post-Type-specific template for the content.
+                            */
+                            get_template_part( 'template-parts/content', 'archive' );
+
+                        endwhile;
+                        ?>
+                    </div><!-- .masonry-grid -->
+
                     <?php
-                    /* Start the Loop */
-                    while ( have_posts() ) :
-                        the_post();
+                    global $wp_query;
+                    if (  $wp_query->max_num_pages > 1 ) : ?>
+                        <div class="load-more-container">
+                            <button class="load-more-button button"><?php esc_html_e( 'Load More', 'authorpro' ); ?></button>
+                        </div>
+                    <?php endif; ?>
 
-                        /*
-                        * Include the Post-Type-specific template for the content.
-                        */
-                        get_template_part( 'template-parts/content', get_post_format() );
-
-                    endwhile;
-
-                    the_posts_navigation();
-
-                else :
+                <?php else :
 
                     get_template_part( 'template-parts/content', 'none' );
 
