@@ -4,7 +4,7 @@ Theme URI: https://example.com/authorpro-theme
 Author: Jules
 Author URI: https://example.com
 Description: A personal theme for authors and writers to showcase their books and connect with readers.
-Version: 1.0.6
+Version: 1.0.7
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: custom-background, custom-logo, custom-menu, featured-images, theme-options, threaded-comments, translation-ready
@@ -17,14 +17,15 @@ Text Domain: authorpro
 1.0 Generic & Variables
 2.0 Layout & Structure
 3.0 Typography
-4.0 Forms
+4.0 Forms & Buttons
 5.0 Header & Navigation
 6.0 Homepage Sections
-7.0 CPT Archives (Books & Events)
-8.0 Single Posts (Book & Event)
-9.0 Comments / Reviews
-10.0 Footer
-11.0 Media Queries
+7.0 Cards
+8.0 CPT Archives (Books & Events)
+9.0 Single Posts (Book & Event)
+10.0 Comments / Reviews
+11.0 Footer
+12.0 Media Queries
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -36,9 +37,11 @@ Text Domain: authorpro
     --color-text: #222222;
     --color-background: #ffffff;
     --color-accent: #0073e6;
-    --color-light-gray: #f0f0f0;
-    --color-border: #dddddd;
+    --color-light-gray: #f7f7f7;
+    --color-dark-gray: #3a3a3a;
+    --color-border: #e0e0e0;
     --spacing-base: 24px;
+    --border-radius: 5px;
 }
 
 body {
@@ -47,87 +50,38 @@ body {
     line-height: 1.8;
     color: var(--color-text);
     background-color: var(--color-background);
-    -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 }
 
-a {
-    color: var(--color-accent);
-    text-decoration: none;
-    transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-}
-
-a:hover,
-a:focus {
-    text-decoration: underline;
-}
-
-img { max-width: 100%; height: auto; border-radius: 5px; }
+a { color: var(--color-accent); text-decoration: none; }
+a:hover, a:focus { text-decoration: underline; }
+img { max-width: 100%; height: auto; border-radius: var(--border-radius); }
 
 /*--------------------------------------------------------------
 2.0 Layout & Structure
 --------------------------------------------------------------*/
-.container {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--spacing-base);
-    padding-right: var(--spacing-base);
-}
-
-.site-main {
-    padding: calc(var(--spacing-base) * 2) 0;
-}
-.page-header {
-    margin-bottom: calc(var(--spacing-base) * 2);
-    padding-bottom: var(--spacing-base);
-    border-bottom: 1px solid var(--color-border);
-}
+.container { max-width: 1200px; margin-left: auto; margin-right: auto; padding: 0 var(--spacing-base); }
+.container-narrow { max-width: 800px; }
+.site-main { padding: calc(var(--spacing-base) * 2) 0; }
+.page-header { margin-bottom: calc(var(--spacing-base) * 2); padding-bottom: var(--spacing-base); border-bottom: 1px solid var(--color-border); }
 
 /*--------------------------------------------------------------
 3.0 Typography
 --------------------------------------------------------------*/
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    line-height: 1.3;
-    margin: var(--spacing-base) 0;
-}
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 700; line-height: 1.3; margin: var(--spacing-base) 0; }
 h1, .h1 { font-size: 3.5rem; }
 h2, .h2 { font-size: 2.8rem; }
 h3, .h3 { font-size: 2.2rem; }
 h4, .h4 { font-size: 1.8rem; }
 
 /*--------------------------------------------------------------
-4.0 Forms
+4.0 Forms & Buttons
 --------------------------------------------------------------*/
-.button,
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-    display: inline-block;
-    padding: 15px 30px;
-    font-size: 1rem;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    background-color: var(--color-accent);
-    color: #fff;
-    border: 1px solid var(--color-accent);
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: transform 0.2s, box-shadow 0.2s;
+.button, button, input[type="submit"] {
+    display: inline-block; padding: 15px 30px; font-size: 1rem; font-family: var(--font-heading); font-weight: 700;
+    background-color: var(--color-accent); color: #fff; border: 1px solid var(--color-accent); border-radius: var(--border-radius);
+    text-align: center; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.2s, box-shadow 0.2s;
 }
-
-.button:hover,
-button:hover,
-input[type="button"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
+.button:hover, button:hover, input[type="submit"]:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-decoration: none; }
 
 /*--------------------------------------------------------------
 5.0 Header & Navigation
@@ -144,61 +98,70 @@ input[type="button"]:hover {
 /*--------------------------------------------------------------
 6.0 Homepage Sections
 --------------------------------------------------------------*/
-.homepage-section { padding: calc(var(--spacing-base) * 2) 0; }
+.homepage-section { padding: calc(var(--spacing-base) * 2.5) 0; }
+.homepage-section:nth-child(odd) { background-color: var(--color-light-gray); }
 .section-headline { text-align: center; margin-bottom: var(--spacing-base); }
 
-/*--------------------------------------------------------------
-7.0 CPT Archives (Books & Events)
---------------------------------------------------------------*/
-.books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: calc(var(--spacing-base) * 2); }
-.book-item { text-align: center; }
-.book-item .book-cover img { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-.book-item .book-title { font-size: 1.2rem; margin-top: 1rem; }
+.hero-section { text-align: center; }
+.hero-section .hero-image { max-width: 180px; border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: var(--spacing-base); }
+.hero-section .hero-headline { margin: 0 0 10px; }
+.hero-section .hero-tagline { font-size: 1.2rem; color: #555; }
 
-.event-item {
-    display: flex;
-    gap: var(--spacing-base);
-    align-items: center;
-    padding: var(--spacing-base) 0;
-    border-bottom: 1px solid var(--color-border);
-}
+.featured-book-inner { display: flex; align-items: center; text-align: left; gap: calc(var(--spacing-base) * 2.5); }
+.featured-book-cover { flex: 0 0 320px; }
+.featured-book-cover img { box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+
+.promotional-section, .newsletter-cta-section { text-align: center; }
+.promotional-section .container, .newsletter-cta-section .container { max-width: 800px; }
+
+/*--------------------------------------------------------------
+7.0 Cards
+--------------------------------------------------------------*/
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--spacing-base); }
+.card { background: #fff; border-radius: var(--border-radius); box-shadow: 0 5px 25px rgba(0,0,0,0.07); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.card-content { padding: var(--spacing-base); }
+.card-title { margin-top: 0; font-size: 1.5rem; }
+.card-excerpt { font-size: 0.95rem; }
+
+/*--------------------------------------------------------------
+8.0 CPT Archives (Books & Events)
+--------------------------------------------------------------*/
+.event-item { display: flex; gap: var(--spacing-base); align-items: flex-start; padding: var(--spacing-base) 0; border-bottom: 1px solid var(--color-border); }
 .event-item .event-image { flex: 0 0 300px; }
 .event-item .event-details { flex: 1; }
 .event-item .entry-title { margin-top: 0; }
 
 /*--------------------------------------------------------------
-8.0 Single Posts (Book & Event)
+9.0 Single Posts (Book & Event)
 --------------------------------------------------------------*/
 .book-single .book-main-content { display: flex; gap: calc(var(--spacing-base) * 2); }
 .book-cover-column { flex: 0 0 40%; }
-.book-cover-column img { box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
 .book-details-column { flex: 1; }
 .book-single .entry-title { margin-top: 0; }
-
-.purchase-links-wrapper { background: var(--color-light-gray); padding: var(--spacing-base); border-radius: 5px; margin: var(--spacing-base) 0; text-align: center; }
+.purchase-links-wrapper { background: var(--color-light-gray); padding: var(--spacing-base); border-radius: var(--border-radius); margin: var(--spacing-base) 0; text-align: center; }
 .purchase-links-wrapper h3 { margin-top: 0; font-size: 1.5rem; }
 .purchase-links .button { display: block; margin-bottom: 1rem; }
-
 .book-additional-info { margin-top: var(--spacing-base); }
-.author-box { display: flex; align-items: center; gap: 20px; background: var(--color-light-gray); padding: 20px; border-radius: 5px; }
+.author-box { display: flex; align-items: center; gap: 20px; background: var(--color-light-gray); padding: 20px; border-radius: var(--border-radius); }
 
 /*--------------------------------------------------------------
-9.0 Comments / Reviews
+10.0 Comments / Reviews
 --------------------------------------------------------------*/
-.comments-area { background: #fff; padding: var(--spacing-base); border-radius: 5px; margin-top: var(--spacing-base); }
+.comments-area { background: #fff; padding: var(--spacing-base); border-radius: var(--border-radius); margin-top: var(--spacing-base); }
 
 /*--------------------------------------------------------------
-10.0 Footer
+11.0 Footer
 --------------------------------------------------------------*/
-.site-footer { background: var(--color-text); color: #fff; padding: var(--spacing-base) 0; font-size: 0.9rem; }
+.site-footer { background: var(--color-dark-gray); color: #fff; padding: var(--spacing-base) 0; font-size: 0.9rem; }
 .site-footer a { color: #fff; opacity: 0.8; }
-.site-footer a:hover { opacity: 1; }
-.footer-widgets { padding-bottom: var(--spacing-base); border-bottom: 1px solid #444; margin-bottom: var(--spacing-base); }
+.site-footer a:hover { opacity: 1; text-decoration: none; }
+.footer-widgets { padding-bottom: var(--spacing-base); border-bottom: 1px solid #555; margin-bottom: var(--spacing-base); }
 .site-footer .site-info { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
 .footer-social-links a { margin-left: 15px; }
 
 /*--------------------------------------------------------------
-11.0 Media Queries
+12.0 Media Queries
 --------------------------------------------------------------*/
 @media (max-width: 768px) {
     .site-header .container { flex-wrap: wrap; }
@@ -209,6 +172,5 @@ input[type="button"]:hover {
     .main-navigation.toggled ul { display: flex; flex-direction: column; gap: 15px; align-items: center; }
     .menu-toggle { display: block; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
     .mobile-cta-button { display: inline-block; font-size: 0.8rem; padding: 8px 12px; }
-
-    .book-single .book-main-content, .event-item { flex-direction: column; }
+    .book-single .book-main-content, .event-item, .featured-book-inner { flex-direction: column; }
 }
