@@ -5,14 +5,9 @@
  * @package AuthorPro
  */
 
-$hero_bg_image = get_theme_mod( 'authorpro_hero_background_image' );
-$hero_style = '';
-if ( $hero_bg_image ) {
-    $hero_style = 'style="background-image: url(' . esc_url( $hero_bg_image ) . ');"';
-}
 ?>
 
-<section id="hero" class="homepage-section hero-section" <?php echo $hero_style; ?>>
+<section id="hero" class="homepage-section hero-section">
     <div class="hero-overlay"></div>
     <div class="container">
         <?php $hero_image_url = get_theme_mod( 'authorpro_hero_image' ); ?>

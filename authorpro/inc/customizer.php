@@ -111,8 +111,6 @@ function authorpro_customize_register( $wp_customize ) {
     $wp_customize->add_control( 'authorpro_hero_tagline', array( 'label' => __( 'Tagline / Bio', 'authorpro' ), 'section' => 'authorpro_hero_section', 'type' => 'textarea' ) );
     $wp_customize->add_setting( 'authorpro_hero_image', array( 'sanitize_callback' => 'esc_url_raw' ) );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'authorpro_hero_image', array( 'label' => __( 'Author Photo', 'authorpro' ), 'section' => 'authorpro_hero_section' ) ) );
-    $wp_customize->add_setting( 'authorpro_hero_background_image', array( 'sanitize_callback' => 'esc_url_raw' ) );
-    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'authorpro_hero_background_image', array( 'label' => __( 'Background Image', 'authorpro' ), 'section' => 'authorpro_hero_section' ) ) );
 
     // --- Featured Book Section ---
     $wp_customize->add_section( 'authorpro_featured_book_section', array( 'title' => __( 'Featured Book', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
@@ -164,6 +162,7 @@ function authorpro_customize_register( $wp_customize ) {
     // --- Promotional Section ---
     $wp_customize->add_section( 'authorpro_promotional_section', array( 'title' => __( 'Promotional Section', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
     $add_section_controls( 'promotional', 60 );
+    $add_background_controls( 'promotional' );
     $wp_customize->add_setting( 'authorpro_promotional_headline', array( 'default' => __( 'A Note from the Author', 'authorpro' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
     $wp_customize->add_control( 'authorpro_promotional_headline', array( 'label' => __( 'Headline', 'authorpro' ), 'section' => 'authorpro_promotional_section' ) );
     $wp_customize->add_setting( 'authorpro_promotional_content', array( 'default' => '', 'sanitize_callback' => 'wp_kses_post' ) );
