@@ -39,9 +39,72 @@ function authorpro_customize_register( $wp_customize ) {
         $wp_customize->add_control( "authorpro_{$section_id}_order", array( 'label' => __( 'Display Order', 'authorpro' ), 'section' => "authorpro_{$section_id}_section", 'type' => 'number' ) );
     };
 
+    // --- Helper function for background controls ---
+    $add_background_controls = function( $section_id ) use ( $wp_customize ) {
+        $wp_customize->add_setting( "authorpro_{$section_id}_background_type", array( 'default' => 'none', 'sanitize_callback' => 'sanitize_text_field' ) );
+        $wp_customize->add_control( "authorpro_{$section_id}_background_type", array(
+            'label'   => __( 'Background Type', 'authorpro' ),
+            'section' => "authorpro_{$section_id}_section",
+            'type'    => 'select',
+            'choices' => array(
+                'none'     => __( 'None', 'authorpro' ),
+                'color'    => __( 'Color', 'authorpro' ),
+                'image'    => __( 'Image', 'authorpro' ),
+                'gradient' => __( 'Gradient', 'authorpro' ),
+            ),
+        ) );
+
+        $wp_customize->add_setting( "authorpro_{$section_id}_background_color", array( 'default' => '#ffffff', 'sanitize_callback' => 'sanitize_hex_color' ) );
+        $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, "authorpro_{$section_id}_background_color", array(
+            'label'   => __( 'Background Color', 'authorpro' ),
+            'section' => "authorpro_{$section_id}_section",
+            'active_callback' => function() use ( $wp_customize, $section_id ) {
+                return 'color' === $wp_customize->get_setting( "authorpro_{$section_id}_background_type" )->value();
+            },
+        ) ) );
+
+        $wp_customize->add_setting( "authorpro_{$section_id}_background_image", array( 'sanitize_callback' => 'esc_url_raw' ) );
+        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, "authorpro_{$section_id}_background_image", array(
+            'label'   => __( 'Background Image', 'authorpro' ),
+            'section' => "authorpro_{$section_id}_section",
+            'active_callback' => function() use ( $wp_customize, $section_id ) {
+                return 'image' === $wp_customize->get_setting( "authorpro_{$section_id}_background_type" )->value();
+            },
+        ) ) );
+
+        $wp_customize->add_setting( "authorpro_{$section_id}_background_gradient_color_1", array( 'default' => '#ffffff', 'sanitize_callback' => 'sanitize_hex_color' ) );
+        $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, "authorpro_{$section_id}_background_gradient_color_1", array(
+            'label'   => __( 'Gradient Color 1', 'authorpro' ),
+            'section' => "authorpro_{$section_id}_section",
+            'active_callback' => function() use ( $wp_customize, $section_id ) {
+                return 'gradient' === $wp_customize->get_setting( "authorpro_{$section_id}_background_type" )->value();
+            },
+        ) ) );
+
+        $wp_customize->add_setting( "authorpro_{$section_id}_background_gradient_color_2", array( 'default' => '#000000', 'sanitize_callback' => 'sanitize_hex_color' ) );
+        $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, "authorpro_{$section_id}_background_gradient_color_2", array(
+            'label'   => __( 'Gradient Color 2', 'authorpro' ),
+            'section' => "authorpro_{$section_id}_section",
+            'active_callback' => function() use ( $wp_customize, $section_id ) {
+                return 'gradient' === $wp_customize->get_setting( "authorpro_{$section_id}_background_type" )->value();
+            },
+        ) ) );
+
+        $wp_customize->add_setting( "authorpro_{$section_id}_background_gradient_direction", array( 'default' => 'to right', 'sanitize_callback' => 'sanitize_text_field' ) );
+        $wp_customize->add_control( "authorpro_{$section_id}_background_gradient_direction", array(
+            'label'   => __( 'Gradient Direction', 'authorpro' ),
+            'section' => "authorpro_{$section_id}_section",
+            'type'    => 'text',
+            'active_callback' => function() use ( $wp_customize, $section_id ) {
+                return 'gradient' === $wp_customize->get_setting( "authorpro_{$section_id}_background_type" )->value();
+            },
+        ) );
+    };
+
     // --- Hero Section ---
     $wp_customize->add_section( 'authorpro_hero_section', array( 'title' => __( 'Hero Section', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
     $add_section_controls( 'hero', 10 );
+    $add_background_controls( 'hero' );
     $wp_customize->add_setting( 'authorpro_hero_headline', array( 'default' => get_bloginfo( 'name' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
     $wp_customize->add_control( 'authorpro_hero_headline', array( 'label' => __( 'Headline', 'authorpro' ), 'section' => 'authorpro_hero_section' ) );
     $wp_customize->add_setting( 'authorpro_hero_tagline', array( 'default' => 'Stories that stay with you long after the last page.', 'sanitize_callback' => 'wp_kses_post', 'transport' => 'postMessage' ) );
@@ -54,6 +117,7 @@ function authorpro_customize_register( $wp_customize ) {
     // --- Featured Book Section ---
     $wp_customize->add_section( 'authorpro_featured_book_section', array( 'title' => __( 'Featured Book', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
     $add_section_controls( 'featured_book', 20 );
+    $add_background_controls( 'featured_book' );
     $wp_customize->add_setting( 'authorpro_featured_book_headline', array( 'default' => __( 'My Latest Novel', 'authorpro' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
     $wp_customize->add_control( 'authorpro_featured_book_headline', array( 'label' => __( 'Section Headline', 'authorpro' ), 'section' => 'authorpro_featured_book_section' ) );
     $wp_customize->add_setting( 'authorpro_featured_book_id', array( 'sanitize_callback' => 'absint' ) );
@@ -62,24 +126,28 @@ function authorpro_customize_register( $wp_customize ) {
     // --- Upcoming Events Section ---
     $wp_customize->add_section( 'authorpro_events_section', array( 'title' => __( 'Upcoming Events', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
     $add_section_controls( 'events', 30 );
+    $add_background_controls( 'events' );
     $wp_customize->add_setting( 'authorpro_events_headline', array( 'default' => __( 'Upcoming Events', 'authorpro' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
     $wp_customize->add_control( 'authorpro_events_headline', array( 'label' => __( 'Section Headline', 'authorpro' ), 'section' => 'authorpro_events_section' ) );
 
     // --- Testimonials Section ---
     $wp_customize->add_section( 'authorpro_testimonials_section', array( 'title' => __( 'Testimonials', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
     $add_section_controls( 'testimonials', 35 );
+    $add_background_controls( 'testimonials' );
     $wp_customize->add_setting( 'authorpro_testimonials_headline', array( 'default' => __( 'What Readers Are Saying', 'authorpro' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
     $wp_customize->add_control( 'authorpro_testimonials_headline', array( 'label' => __( 'Section Headline', 'authorpro' ), 'section' => 'authorpro_testimonials_section' ) );
 
     // --- From The Blog Section ---
     $wp_customize->add_section( 'authorpro_blog_section', array( 'title' => __( 'From The Blog', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
     $add_section_controls( 'blog', 40 );
+    $add_background_controls( 'blog' );
     $wp_customize->add_setting( 'authorpro_blog_headline', array( 'default' => __( 'From The Blog', 'authorpro' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
     $wp_customize->add_control( 'authorpro_blog_headline', array( 'label' => __( 'Section Headline', 'authorpro' ), 'section' => 'authorpro_blog_section' ) );
 
     // --- Newsletter CTA Section ---
     $wp_customize->add_section( 'authorpro_newsletter_section', array( 'title' => __( 'Newsletter CTA', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
     $add_section_controls( 'newsletter', 50 );
+    $add_background_controls( 'newsletter' );
     $wp_customize->add_setting( 'authorpro_newsletter_headline', array( 'default' => __( 'Join My Reader\'s Circle', 'authorpro' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
     $wp_customize->add_control( 'authorpro_newsletter_headline', array( 'label' => __( 'CTA Headline', 'authorpro' ), 'section' => 'authorpro_newsletter_section' ) );
     $wp_customize->add_setting( 'authorpro_newsletter_text', array( 'default' => 'Be the first to hear about new releases, events, and exclusive content.', 'sanitize_callback' => 'wp_kses_post', 'transport' => 'postMessage' ) );
