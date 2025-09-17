@@ -135,8 +135,15 @@ add_action( 'widgets_init', 'authorpro_widgets_init' );
  * Enqueue scripts and styles.
  */
 function authorpro_scripts() {
-	// Enqueue Google Fonts
-    wp_enqueue_style( 'authorpro-fonts', 'https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@700&display=swap', array(), null );
+    // Enqueue Google Fonts
+    $heading_font = get_theme_mod( 'authorpro_heading_font', 'Merriweather' );
+    $body_font    = get_theme_mod( 'authorpro_body_font', 'Lato' );
+
+    $fonts_url = 'https://fonts.googleapis.com/css2?family=' .
+                 urlencode( $heading_font ) . ':wght@400;700&family=' .
+                 urlencode( $body_font ) . ':wght@400;700&display=swap';
+
+    wp_enqueue_style( 'authorpro-fonts', $fonts_url, array(), null );
 
     // Enqueue main stylesheet
 	wp_enqueue_style( 'authorpro-style', get_stylesheet_uri(), array(), AUTHORPRO_VERSION );

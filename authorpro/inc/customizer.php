@@ -117,8 +117,43 @@ function authorpro_customize_register( $wp_customize ) {
 
     // --- Colors Section ---
     $wp_customize->add_section( 'authorpro_colors_section', array( 'title' => __( 'Colors', 'authorpro' ), 'panel' => 'authorpro_theme_options_panel' ) );
+    $wp_customize->add_setting( 'authorpro_background_color', array( 'default' => '#ffffff', 'sanitize_callback' => 'sanitize_hex_color' ) );
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'authorpro_background_color', array( 'label' => __( 'Background Color', 'authorpro' ), 'section' => 'authorpro_colors_section' ) ) );
+    $wp_customize->add_setting( 'authorpro_primary_text_color', array( 'default' => '#333333', 'sanitize_callback' => 'sanitize_hex_color' ) );
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'authorpro_primary_text_color', array( 'label' => __( 'Primary Text Color', 'authorpro' ), 'section' => 'authorpro_colors_section' ) ) );
+    $wp_customize->add_setting( 'authorpro_secondary_text_color', array( 'default' => '#666666', 'sanitize_callback' => 'sanitize_hex_color' ) );
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'authorpro_secondary_text_color', array( 'label' => __( 'Secondary Text Color', 'authorpro' ), 'section' => 'authorpro_colors_section' ) ) );
     $wp_customize->add_setting( 'authorpro_accent_color', array( 'default' => '#7f8c8d', 'sanitize_callback' => 'sanitize_hex_color' ) );
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'authorpro_accent_color', array( 'label' => __( 'Accent Color', 'authorpro' ), 'section' => 'authorpro_colors_section' ) ) );
+
+    // --- Fonts Section ---
+    $wp_customize->add_section( 'authorpro_fonts_section', array( 'title' => __( 'Fonts', 'authorpro' ), 'panel' => 'authorpro_theme_options_panel' ) );
+    $wp_customize->add_setting( 'authorpro_heading_font', array( 'default' => 'Merriweather', 'sanitize_callback' => 'sanitize_text_field' ) );
+    $wp_customize->add_control( 'authorpro_heading_font', array(
+        'label'   => __( 'Heading Font', 'authorpro' ),
+        'section' => 'authorpro_fonts_section',
+        'type'    => 'select',
+        'choices' => array(
+            'Merriweather' => 'Merriweather',
+            'Montserrat' => 'Montserrat',
+            'Lato' => 'Lato',
+            'Roboto' => 'Roboto',
+            'Open Sans' => 'Open Sans',
+        ),
+    ) );
+    $wp_customize->add_setting( 'authorpro_body_font', array( 'default' => 'Lato', 'sanitize_callback' => 'sanitize_text_field' ) );
+    $wp_customize->add_control( 'authorpro_body_font', array(
+        'label'   => __( 'Body Font', 'authorpro' ),
+        'section' => 'authorpro_fonts_section',
+        'type'    => 'select',
+        'choices' => array(
+            'Merriweather' => 'Merriweather',
+            'Montserrat' => 'Montserrat',
+            'Lato' => 'Lato',
+            'Roboto' => 'Roboto',
+            'Open Sans' => 'Open Sans',
+        ),
+    ) );
 
     // --- Footer Section ---
     $wp_customize->add_section( 'authorpro_footer_section', array( 'title' => __( 'Footer', 'authorpro' ), 'panel' => 'authorpro_theme_options_panel' ) );
@@ -148,11 +183,31 @@ function authorpro_customize_preview_js() {
 add_action( 'customize_preview_init', 'authorpro_customize_preview_js' );
 
 /**
- * Adds the custom accent color to the theme.
+ * Adds the custom styles to the theme.
  */
-function authorpro_custom_colors_css() {
-    $accent_color = get_theme_mod( 'authorpro_accent_color', '#7f8c8d' );
+function authorpro_custom_styles_css() {
+    $background_color       = get_theme_mod( 'authorpro_background_color', '#ffffff' );
+    $primary_text_color     = get_theme_mod( 'authorpro_primary_text_color', '#333333' );
+    $secondary_text_color   = get_theme_mod( 'authorpro_secondary_text_color', '#666666' );
+    $accent_color           = get_theme_mod( 'authorpro_accent_color', '#7f8c8d' );
+    $heading_font           = get_theme_mod( 'authorpro_heading_font', 'Merriweather' );
+    $body_font              = get_theme_mod( 'authorpro_body_font', 'Lato' );
+
     $custom_css = "
+        body {
+            background-color: {$background_color};
+            color: {$primary_text_color};
+            font-family: '{$body_font}', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6, .site-title {
+            font-family: '{$heading_font}', serif;
+        }
+
+        .entry-meta, .widget, .site-footer {
+            color: {$secondary_text_color};
+        }
+
         a,
         .site-title a:hover,
         .entry-title a:hover {
@@ -164,7 +219,8 @@ function authorpro_custom_colors_css() {
         input[type=\"button\"],
         input[type=\"reset\"],
         input[type=\"submit\"],
-        .main-navigation a:hover {
+        .main-navigation a:hover,
+        .load-more-button {
             background-color: {$accent_color};
             border-color: {$accent_color};
             color: #fff;
@@ -172,4 +228,4 @@ function authorpro_custom_colors_css() {
     ";
     wp_add_inline_style( 'authorpro-style', $custom_css );
 }
-add_action( 'wp_enqueue_scripts', 'authorpro_custom_colors_css' );
+add_action( 'wp_enqueue_scripts', 'authorpro_custom_styles_css' );
