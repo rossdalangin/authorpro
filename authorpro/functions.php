@@ -156,7 +156,23 @@ function authorpro_scripts() {
         wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js', array('jquery'), null, true );
         wp_enqueue_script( 'masonry', 'https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js', array('jquery'), null, true );
         wp_enqueue_script( 'authorpro-load-more', get_template_directory_uri() . '/js/load-more.js', array('jquery', 'masonry'), AUTHORPRO_VERSION, true );
+    }
 
+    // Enqueue Swiper for testimonials slider
+    if ( is_page_template( 'template-homepage.php' ) && get_theme_mod( 'authorpro_testimonials_show', true ) ) {
+        wp_enqueue_style( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), '12.0.0' );
+        wp_enqueue_script( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), '12.0.0', true );
+        wp_enqueue_script( 'authorpro-theme', get_template_directory_uri() . '/js/theme.js', array( 'swiper' ), AUTHORPRO_VERSION, true );
+
+        $slider_settings = array(
+            'slidesPerView' => get_theme_mod( 'authorpro_testimonials_slides_per_view', 1 ),
+            'autoplay'      => get_theme_mod( 'authorpro_testimonials_autoplay', false ),
+            'loop'          => get_theme_mod( 'authorpro_testimonials_loop', true ),
+        );
+        wp_localize_script( 'authorpro-theme', 'authorpro_slider_settings', $slider_settings );
+    }
+
+    if ( is_home() || is_archive() ) {
         // Pass data to the script
         global $wp_query;
         wp_localize_script( 'authorpro-load-more', 'authorpro_loadmore_params', array(

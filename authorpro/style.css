@@ -122,12 +122,14 @@ h4, .h4 { font-size: 1.8rem; }
 .featured-book-details .purchase-links .button { margin: 0 10px 10px 0; }
 .promotional-section, .newsletter-cta-section { text-align: center; }
 
-.testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-base); }
+.testimonial-slider { position: relative; }
 .testimonial-item { background: var(--color-background); padding: var(--spacing-base); border-radius: var(--border-radius); text-align: center; }
 .testimonial-content { font-style: italic; margin-bottom: var(--spacing-base); }
 .testimonial-author { display: flex; align-items: center; justify-content: center; gap: 15px; }
 .testimonial-author .author-image img { border-radius: 50%; width: 60px; height: 60px; }
 .testimonial-author .author-name { font-weight: bold; font-style: normal; }
+.swiper-pagination-bullet-active { background: var(--color-accent); }
+.swiper-button-next, .swiper-button-prev { color: var(--color-accent); }
 
 /*--------------------------------------------------------------
 7.0 Cards & Masonry

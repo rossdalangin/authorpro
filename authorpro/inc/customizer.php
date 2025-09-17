@@ -136,6 +136,12 @@ function authorpro_customize_register( $wp_customize ) {
     $add_background_controls( 'testimonials' );
     $wp_customize->add_setting( 'authorpro_testimonials_headline', array( 'default' => __( 'What Readers Are Saying', 'authorpro' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
     $wp_customize->add_control( 'authorpro_testimonials_headline', array( 'label' => __( 'Section Headline', 'authorpro' ), 'section' => 'authorpro_testimonials_section' ) );
+    $wp_customize->add_setting( 'authorpro_testimonials_slides_per_view', array( 'default' => 1, 'sanitize_callback' => 'absint' ) );
+    $wp_customize->add_control( 'authorpro_testimonials_slides_per_view', array( 'label' => __( 'Slides Per View', 'authorpro' ), 'section' => 'authorpro_testimonials_section', 'type' => 'number' ) );
+    $wp_customize->add_setting( 'authorpro_testimonials_autoplay', array( 'default' => false, 'sanitize_callback' => 'wp_validate_boolean' ) );
+    $wp_customize->add_control( 'authorpro_testimonials_autoplay', array( 'label' => __( 'Autoplay', 'authorpro' ), 'section' => 'authorpro_testimonials_section', 'type' => 'checkbox' ) );
+    $wp_customize->add_setting( 'authorpro_testimonials_loop', array( 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ) );
+    $wp_customize->add_control( 'authorpro_testimonials_loop', array( 'label' => __( 'Loop', 'authorpro' ), 'section' => 'authorpro_testimonials_section', 'type' => 'checkbox' ) );
 
     // --- From The Blog Section ---
     $wp_customize->add_section( 'authorpro_blog_section', array( 'title' => __( 'From The Blog', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
