@@ -18,6 +18,7 @@ get_header();
         'hero',
         'featured_book',
         'events',
+        'testimonials',
         'blog',
         'promotional',
         'newsletter',

@@ -135,8 +135,15 @@ add_action( 'widgets_init', 'authorpro_widgets_init' );
  * Enqueue scripts and styles.
  */
 function authorpro_scripts() {
-	// Enqueue Google Fonts
-    wp_enqueue_style( 'authorpro-fonts', 'https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@700&display=swap', array(), null );
+    // Enqueue Google Fonts
+    $heading_font = get_theme_mod( 'authorpro_heading_font', 'Merriweather' );
+    $body_font    = get_theme_mod( 'authorpro_body_font', 'Lato' );
+
+    $fonts_url = 'https://fonts.googleapis.com/css2?family=' .
+                 urlencode( $heading_font ) . ':wght@400;700&family=' .
+                 urlencode( $body_font ) . ':wght@400;700&display=swap';
+
+    wp_enqueue_style( 'authorpro-fonts', $fonts_url, array(), null );
 
     // Enqueue main stylesheet
 	wp_enqueue_style( 'authorpro-style', get_stylesheet_uri(), array(), AUTHORPRO_VERSION );
@@ -149,7 +156,23 @@ function authorpro_scripts() {
         wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js', array('jquery'), null, true );
         wp_enqueue_script( 'masonry', 'https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js', array('jquery'), null, true );
         wp_enqueue_script( 'authorpro-load-more', get_template_directory_uri() . '/js/load-more.js', array('jquery', 'masonry'), AUTHORPRO_VERSION, true );
+    }
 
+    // Enqueue Swiper for testimonials slider
+    if ( is_page_template( 'template-homepage.php' ) && get_theme_mod( 'authorpro_testimonials_show', true ) ) {
+        wp_enqueue_style( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), '12.0.0' );
+        wp_enqueue_script( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), '12.0.0', true );
+        wp_enqueue_script( 'authorpro-theme', get_template_directory_uri() . '/js/theme.js', array( 'swiper' ), AUTHORPRO_VERSION, true );
+
+        $slider_settings = array(
+            'slidesPerView' => get_theme_mod( 'authorpro_testimonials_slides_per_view', 1 ),
+            'autoplay'      => get_theme_mod( 'authorpro_testimonials_autoplay', false ),
+            'loop'          => get_theme_mod( 'authorpro_testimonials_loop', true ),
+        );
+        wp_localize_script( 'authorpro-theme', 'authorpro_slider_settings', $slider_settings );
+    }
+
+    if ( is_home() || is_archive() ) {
         // Pass data to the script
         global $wp_query;
         wp_localize_script( 'authorpro-load-more', 'authorpro_loadmore_params', array(
@@ -235,3 +258,78 @@ function authorpro_loadmore_ajax_handler(){
 }
 add_action('wp_ajax_loadmore', 'authorpro_loadmore_ajax_handler');
 add_action('wp_ajax_nopriv_loadmore', 'authorpro_loadmore_ajax_handler');
+
+/**
+ * Generate and enqueue inline CSS for homepage section backgrounds.
+ */
+function authorpro_homepage_section_backgrounds() {
+    if ( ! is_page_template( 'template-homepage.php' ) ) {
+        return;
+    }
+
+    $sections = array( 'hero', 'featured_book', 'events', 'testimonials', 'blog', 'promotional', 'newsletter' );
+    $styles = '';
+    $section_class_map = array(
+        'hero'          => '.hero-section',
+        'featured_book' => '.featured-book-section',
+        'events'        => '.upcoming-events-section',
+        'testimonials'  => '.testimonials-section',
+        'blog'          => '.from-the-blog-section',
+        'promotional'   => '.promotional-section',
+        'newsletter'    => '.newsletter-cta-section',
+    );
+
+    foreach ( $sections as $section ) {
+        $background_type = get_theme_mod( "authorpro_{$section}_background_type", 'none' );
+        $selector = isset( $section_class_map[ $section ] ) ? $section_class_map[ $section ] : '';
+
+        if ( empty( $selector ) ) {
+            continue;
+        }
+
+        $style = '';
+
+        // Special handling for hero section
+        if ( 'hero' === $section ) {
+            if ( 'none' === $background_type ) {
+                $styles .= ".hero-overlay { background: none !important; }";
+                continue;
+            }
+            if ( 'color' === $background_type ) {
+                $selector = '.hero-overlay';
+            }
+        }
+
+        if ( 'none' === $background_type ) {
+            continue;
+        }
+
+        if ( 'color' === $background_type ) {
+            $color = get_theme_mod( "authorpro_{$section}_background_color" );
+            if ( $color ) {
+                $style = "background: {$color};";
+            }
+        } elseif ( 'image' === $background_type ) {
+            $image = get_theme_mod( "authorpro_{$section}_background_image" );
+            if ( $image ) {
+                $style = "background-image: url('" . esc_url( $image ) . "'); background-size: cover; background-position: center;";
+            }
+        } elseif ( 'gradient' === $background_type ) {
+            $color1 = get_theme_mod( "authorpro_{$section}_background_gradient_color_1" );
+            $color2 = get_theme_mod( "authorpro_{$section}_background_gradient_color_2" );
+            $direction = get_theme_mod( "authorpro_{$section}_background_gradient_direction" );
+            if ( $color1 && $color2 && $direction ) {
+                $style = "background: linear-gradient({$direction}, {$color1}, {$color2});";
+            }
+        }
+
+        if ( ! empty( $style ) ) {
+            $styles .= "{$selector} { {$style} }";
+        }
+    }
+
+    if ( ! empty( $styles ) ) {
+        wp_add_inline_style( 'authorpro-style', $styles );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'authorpro_homepage_section_backgrounds' );
