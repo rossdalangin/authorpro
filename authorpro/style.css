@@ -127,7 +127,9 @@ h4, .h4 { font-size: 1.8rem; }
 .testimonial-content { font-style: italic; margin-bottom: var(--spacing-base); }
 .testimonial-author { display: flex; align-items: center; justify-content: center; gap: 15px; }
 .testimonial-author .author-image img { border-radius: 50%; width: 60px; height: 60px; }
+.testimonial-author .author-details { display: flex; flex-direction: column; }
 .testimonial-author .author-name { font-weight: bold; font-style: normal; }
+.testimonial-author .author-designation { font-size: 0.9rem; font-style: normal; opacity: 0.8; }
 .swiper-pagination-bullet-active { background: var(--color-accent); }
 .swiper-button-next, .swiper-button-prev { color: var(--color-accent); }
 

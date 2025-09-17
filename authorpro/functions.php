@@ -258,3 +258,62 @@ function authorpro_loadmore_ajax_handler(){
 }
 add_action('wp_ajax_loadmore', 'authorpro_loadmore_ajax_handler');
 add_action('wp_ajax_nopriv_loadmore', 'authorpro_loadmore_ajax_handler');
+
+/**
+ * Generate and enqueue inline CSS for homepage section backgrounds.
+ */
+function authorpro_homepage_section_backgrounds() {
+    if ( ! is_page_template( 'template-homepage.php' ) ) {
+        return;
+    }
+
+    $sections = array( 'hero', 'featured_book', 'events', 'testimonials', 'blog', 'promotional', 'newsletter' );
+    $styles = '';
+    $section_class_map = array(
+        'hero'          => '.hero-section',
+        'featured_book' => '.featured-book-section',
+        'events'        => '.upcoming-events-section',
+        'testimonials'  => '.testimonials-section',
+        'blog'          => '.from-the-blog-section',
+        'promotional'   => '.promotional-section',
+        'newsletter'    => '.newsletter-cta-section',
+    );
+
+    foreach ( $sections as $section ) {
+        $background_type = get_theme_mod( "authorpro_{$section}_background_type", 'none' );
+        $selector = isset( $section_class_map[ $section ] ) ? $section_class_map[ $section ] : '';
+
+        if ( empty( $selector ) || 'none' === $background_type ) {
+            continue;
+        }
+
+        $style = '';
+        if ( 'color' === $background_type ) {
+            $color = get_theme_mod( "authorpro_{$section}_background_color" );
+            if ( $color ) {
+                $style = "background-color: {$color};";
+            }
+        } elseif ( 'image' === $background_type ) {
+            $image = get_theme_mod( "authorpro_{$section}_background_image" );
+            if ( $image ) {
+                $style = "background-image: url('" . esc_url( $image ) . "'); background-size: cover; background-position: center;";
+            }
+        } elseif ( 'gradient' === $background_type ) {
+            $color1 = get_theme_mod( "authorpro_{$section}_background_gradient_color_1" );
+            $color2 = get_theme_mod( "authorpro_{$section}_background_gradient_color_2" );
+            $direction = get_theme_mod( "authorpro_{$section}_background_gradient_direction" );
+            if ( $color1 && $color2 && $direction ) {
+                $style = "background: linear-gradient({$direction}, {$color1}, {$color2});";
+            }
+        }
+
+        if ( ! empty( $style ) ) {
+            $styles .= "{$selector} { {$style} }";
+        }
+    }
+
+    if ( ! empty( $styles ) ) {
+        wp_add_inline_style( 'authorpro-style', $styles );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'authorpro_homepage_section_backgrounds' );

@@ -30,8 +30,15 @@ if ( $testimonials_query->have_posts() ) : ?>
                                         <?php the_post_thumbnail( 'thumbnail' ); ?>
                                     </div>
                                 <?php endif; ?>
-                                <cite class="author-name"><?php the_title(); ?></cite>
+                                <div class="author-details">
+                                    <cite class="author-name"><?php the_title(); ?></cite>
+                                    <?php
+                                    $designation = get_post_meta( get_the_ID(), '_designation', true );
+                                    if ( ! empty( $designation ) ) : ?>
+                                        <span class="author-designation"><?php echo esc_html( $designation ); ?></span>
+                                    <?php endif; ?>
                                 </div>
+                            </div>
                         </div>
                         </div>
                 <?php endwhile; ?>

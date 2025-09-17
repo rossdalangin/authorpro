@@ -29,6 +29,14 @@ function authorpro_add_custom_meta_boxes() {
         'normal',
         'high'
     );
+    add_meta_box(
+        'authorpro_testimonial_details',
+        __( 'Testimonial Details', 'authorpro' ),
+        'authorpro_render_testimonial_meta_box',
+        'testimonial',
+        'normal',
+        'high'
+    );
 }
 add_action( 'add_meta_boxes', 'authorpro_add_custom_meta_boxes' );
 
@@ -104,6 +112,23 @@ function authorpro_render_event_meta_box( $post ) {
     <?php
 }
 
+/**
+ * Render the meta box for Testimonial details.
+ *
+ * @param WP_Post $post The post object.
+ */
+function authorpro_render_testimonial_meta_box( $post ) {
+    wp_nonce_field( 'authorpro_save_testimonial_details', 'authorpro_testimonial_details_nonce' );
+
+    $designation = get_post_meta( $post->ID, '_designation', true );
+
+    ?>
+    <p>
+        <label for="designation"><?php esc_html_e( 'Author Designation:', 'authorpro' ); ?></label>
+        <input type="text" id="designation" name="designation" value="<?php echo esc_attr( $designation ); ?>" class="widefat">
+    </p>
+    <?php
+}
 
 /**
  * Save meta box data when a post is saved.
@@ -152,6 +177,13 @@ function authorpro_save_meta_data( $post_id ) {
         }
         if ( isset( $_POST['event_url'] ) ) {
             update_post_meta( $post_id, '_event_url', esc_url_raw( $_POST['event_url'] ) );
+        }
+    }
+
+    // --- Save Testimonial Details ---
+    if ( isset( $_POST['authorpro_testimonial_details_nonce'] ) && wp_verify_nonce( $_POST['authorpro_testimonial_details_nonce'], 'authorpro_save_testimonial_details' ) ) {
+        if ( isset( $_POST['designation'] ) ) {
+            update_post_meta( $post_id, '_designation', sanitize_text_field( $_POST['designation'] ) );
         }
     }
 }
