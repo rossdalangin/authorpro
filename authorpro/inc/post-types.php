@@ -123,3 +123,57 @@ function authorpro_register_post_types() {
 	register_post_type( 'event', $args_event );
 }
 add_action( 'init', 'authorpro_register_post_types', 0 );
+
+	/**
+	 * Post Type: Testimonials.
+	 */
+	$labels_testimonial = array(
+		'name'                  => _x( 'Testimonials', 'Post Type General Name', 'authorpro' ),
+		'singular_name'         => _x( 'Testimonial', 'Post Type Singular Name', 'authorpro' ),
+		'menu_name'             => __( 'Testimonials', 'authorpro' ),
+		'name_admin_bar'        => __( 'Testimonial', 'authorpro' ),
+		'archives'              => __( 'Testimonial Archives', 'authorpro' ),
+		'attributes'            => __( 'Testimonial Attributes', 'authorpro' ),
+		'parent_item_colon'     => __( 'Parent Testimonial:', 'authorpro' ),
+		'all_items'             => __( 'All Testimonials', 'authorpro' ),
+		'add_new_item'          => __( 'Add New Testimonial', 'authorpro' ),
+		'add_new'               => __( 'Add New', 'authorpro' ),
+		'new_item'              => __( 'New Testimonial', 'authorpro' ),
+		'edit_item'             => __( 'Edit Testimonial', 'authorpro' ),
+		'update_item'           => __( 'Update Testimonial', 'authorpro' ),
+		'view_item'             => __( 'View Testimonial', 'authorpro' ),
+		'view_items'            => __( 'View Testimonials', 'authorpro' ),
+		'search_items'          => __( 'Search Testimonial', 'authorpro' ),
+		'not_found'             => __( 'Not found', 'authorpro' ),
+		'not_found_in_trash'    => __( 'Not found in Trash', 'authorpro' ),
+		'featured_image'        => __( 'Author Image', 'authorpro' ),
+		'set_featured_image'    => __( 'Set author image', 'authorpro' ),
+		'remove_featured_image' => __( 'Remove author image', 'authorpro' ),
+		'use_featured_image'    => __( 'Use as author image', 'authorpro' ),
+		'insert_into_item'      => __( 'Insert into testimonial', 'authorpro' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this testimonial', 'authorpro' ),
+		'items_list'            => __( 'Testimonials list', 'authorpro' ),
+		'items_list_navigation' => __( 'Testimonials list navigation', 'authorpro' ),
+		'filter_items_list'     => __( 'Filter testimonials list', 'authorpro' ),
+	);
+	$args_testimonial = array(
+		'label'                 => __( 'Testimonial', 'authorpro' ),
+		'description'           => __( 'A post type for testimonials.', 'authorpro' ),
+		'labels'                => $labels_testimonial,
+		'supports'              => array( 'title', 'editor', 'thumbnail' ),
+		'hierarchical'          => false,
+		'public'                => false,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'menu_position'         => 7,
+		'menu_icon'             => 'dashicons-format-quote',
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => false,
+		'can_export'            => true,
+		'has_archive'           => false,
+		'exclude_from_search'   => true,
+		'publicly_queryable'    => false,
+		'capability_type'       => 'post',
+		'show_in_rest'          => true,
+	);
+	register_post_type( 'testimonial', $args_testimonial );

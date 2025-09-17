@@ -65,6 +65,12 @@ function authorpro_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'authorpro_events_headline', array( 'default' => __( 'Upcoming Events', 'authorpro' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
     $wp_customize->add_control( 'authorpro_events_headline', array( 'label' => __( 'Section Headline', 'authorpro' ), 'section' => 'authorpro_events_section' ) );
 
+    // --- Testimonials Section ---
+    $wp_customize->add_section( 'authorpro_testimonials_section', array( 'title' => __( 'Testimonials', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
+    $add_section_controls( 'testimonials', 35 );
+    $wp_customize->add_setting( 'authorpro_testimonials_headline', array( 'default' => __( 'What Readers Are Saying', 'authorpro' ), 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage' ) );
+    $wp_customize->add_control( 'authorpro_testimonials_headline', array( 'label' => __( 'Section Headline', 'authorpro' ), 'section' => 'authorpro_testimonials_section' ) );
+
     // --- From The Blog Section ---
     $wp_customize->add_section( 'authorpro_blog_section', array( 'title' => __( 'From The Blog', 'authorpro' ), 'panel' => 'authorpro_homepage_panel' ) );
     $add_section_controls( 'blog', 40 );
@@ -139,6 +145,9 @@ function authorpro_customize_register( $wp_customize ) {
             'Lato' => 'Lato',
             'Roboto' => 'Roboto',
             'Open Sans' => 'Open Sans',
+            'Playfair Display' => 'Playfair Display',
+            'Raleway' => 'Raleway',
+            'Poppins' => 'Poppins',
         ),
     ) );
     $wp_customize->add_setting( 'authorpro_body_font', array( 'default' => 'Lato', 'sanitize_callback' => 'sanitize_text_field' ) );
@@ -152,6 +161,9 @@ function authorpro_customize_register( $wp_customize ) {
             'Lato' => 'Lato',
             'Roboto' => 'Roboto',
             'Open Sans' => 'Open Sans',
+            'Playfair Display' => 'Playfair Display',
+            'Raleway' => 'Raleway',
+            'Poppins' => 'Poppins',
         ),
     ) );
 
