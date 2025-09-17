@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuthorPro - The Last WordPress Theme You'll Ever Need</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a2540;
+            --secondary-color: #ffffff;
+            --accent-color: #fbbc05;
+            --text-color: #333;
+            --light-gray: #f7f7f7;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--secondary-color);
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .hero {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero h1 {
+            font-family: 'Lora', serif;
+            font-size: 4rem;
+            margin: 0 0 10px 0;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            opacity: 0.9;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+        .section {
+            padding: 80px 0;
+        }
+        .section-light {
+            background-color: var(--light-gray);
+        }
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .feature-item {
+            text-align: center;
+        }
+        .feature-item .icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        .feature-item h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .testimonial-card {
+            background: var(--secondary-color);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+            margin-bottom: 20px;
+        }
+        .testimonial-card p {
+            font-style: italic;
+            margin: 0 0 20px 0;
+        }
+        .testimonial-card .author {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .final-cta {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            text-align: center;
+            padding: 80px 0;
+        }
+        .final-cta h2 {
+            color: var(--secondary-color);
+            font-size: 3rem;
+        }
+        .final-cta p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        .idiot-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 40px;
+            margin: 50px auto;
+            max-width: 800px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .idiot-box h3 {
+            color: #856404;
+            margin-top: 0;
+            text-align: center;
+        }
+        .idiot-box ul {
+            list-style-type: '❌ ';
+            padding-left: 20px;
+        }
+        .idiot-box li {
+            margin-bottom: 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .section h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Your Writing Career Deserves a Professional Website.</h1>
+            <p>Stop looking like an amateur with a generic, clunky website. AuthorPro is the only WordPress theme built from the ground up to help authors like you build a brand, connect with readers, and sell more books. Effortlessly.</p>
+            <a href="#pricing" class="cta-button">Get AuthorPro Now & Stop Losing Sales</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="section section-light">
+            <div class="container">
+                <h2>Is This You?</h2>
+                <div class="idiot-box">
+                    <h3>Let's Be Honest. Your Current Website Sucks.</h3>
+                    <ul>
+                        <li>You're an incredible writer, but your website looks like it was built in 2005. It's slow, ugly, and actively repelling readers.</li>
+                        <li>You're paying a "web guy" hundreds (or thousands) for simple updates that you should be able to do yourself in minutes.</li>
+                        <li>You're trying to jury-rig a generic blog theme to work as an author platform, and it's a frustrating, time-wasting nightmare.</li>
+                        <li>You know you're losing sales and email subscribers because your site isn't professional, but you have no idea where to start.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2>The One-Click Solution: AuthorPro</h2>
+                <p style="text-align: center; max-width: 800px; margin: -30px auto 50px auto;">AuthorPro isn't just a theme. It's a complete, professional author platform designed to make you look good, sell more books, and give you back your most valuable asset: **time.**</p>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="icon">📚</div>
+                        <h3>Showcase Your Books</h3>
+                        <p>Beautiful, dedicated book pages. Add your cover, synopsis, and unlimited "buy now" links. Make it impossible for readers *not* to buy your work.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🎨</div>
+                        <h3>Total Visual Control</h3>
+                        <p>Change every font, color, and background without touching a single line of code. Match your website to your book covers, your brand, or your mood. It's your world.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🗓️</div>
+                        <h3>Promote Your Events</h3>
+                        <p>Got a book signing, a talk, or a tour? Our built-in events system makes it dead simple to list and promote all your upcoming appearances.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">💬</div>
+                        <h3>Dynamic Testimonials</h3>
+                        <p>Showcase glowing reviews from readers and industry pros in a beautiful, sliding display. Add a name, designation, and photo to build instant credibility.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">📱</div>
+                        <h3>Flawless on All Devices</h3>
+                        <p>Your website will look absolutely stunning on desktops, tablets, and smartphones. No configuration needed. It just works.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon">🚀</div>
+                        <h3>Blazing Fast</h3>
+                        <p>AuthorPro is lightweight and optimized for speed, because a slow website is a dead website. Don't lose readers to a loading screen.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-light">
+            <div class="container">
+                <h2>What Real Authors Are Saying...</h2>
+                <div class="features-grid">
+                    <div class="testimonial-card">
+                        <p>"I'm a writer, not a web developer. I had my new site up and running with AuthorPro in under an hour. My old site took me 3 months of frustration. My sales have literally doubled."</p>
+                        <div class="author">- Jane Doe, NYT Bestselling Author</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"The level of customization is insane. I finally have a website that feels like *me* and my brand. And I did it all myself. I fired my web guy!"</p>
+                        <div class="author">- John Smith, Fantasy Author</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="final-cta">
+            <div class="container">
+                <h2>Stop Thinking. Start Selling.</h2>
+                <p>Every day you wait is another day of lost sales and missed opportunities. While you're "thinking about it," other authors are using AuthorPro to build their empires. Don't be left behind.</p>
+                <div style="margin-bottom: 30px; font-size: 1.5rem;">One-Time Payment. Lifetime Updates. Unlimited Support.</div>
+                <div style="font-size: 4rem; font-weight: 900; color: var(--accent-color); margin-bottom: 30px;">$79</div>
+                <a href="#" class="cta-button">Buy AuthorPro Now and Fix Your Career</a>
+                <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 20px;">30-Day Money-Back Guarantee. No questions asked. You have literally zero risk.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 AuthorPro Themes. All Rights Reserved. Stop wasting time and buy the theme.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

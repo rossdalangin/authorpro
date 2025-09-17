@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuthorPro | The #1 WordPress Theme for Professional Authors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1a202c;
+            --secondary-dark: #2d3748;
+            --primary-light: #ffffff;
+            --secondary-light: #f7fafc;
+            --accent-primary: #dd6b20; /* A strong, confident orange */
+            --accent-secondary: #f6ad55;
+            --text-primary: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Inter', sans-serif;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            font-family: var(--body-font);
+            margin: 0;
+            color: var(--secondary-dark);
+            line-height: 1.7;
+            background-color: var(--primary-light);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            color: var(--text-primary);
+            padding: 120px 0;
+            text-align: center;
+        }
+        .hero h1 {
+            font-family: var(--heading-font);
+            font-size: 4.5rem;
+            margin: 0 0 15px 0;
+            line-height: 1.1;
+        }
+        .hero .sub-headline {
+            font-size: 1.25rem;
+            max-width: 650px;
+            margin: 0 auto 40px auto;
+            color: var(--text-secondary);
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+            color: var(--primary-light);
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(221, 107, 32, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+        }
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(221, 107, 32, 0.4);
+        }
+        .section {
+            padding: 100px 0;
+            animation: fadeIn 1s ease-out;
+        }
+        .section-light {
+            background-color: var(--secondary-light);
+        }
+        .section h2 {
+            text-align: center;
+            font-family: var(--heading-font);
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+        .section .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #718096;
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .feature-card {
+            background: var(--primary-light);
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(45, 55, 72, 0.1);
+        }
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .feature-card h3 {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        .social-proof {
+            text-align: center;
+            padding: 50px 0;
+        }
+        .social-proof .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            filter: grayscale(100%);
+            opacity: 0.6;
+        }
+        .social-proof .logos img {
+            height: 40px;
+        }
+        .value-prop {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .value-prop .path-card {
+            padding: 30px;
+            border-radius: 12px;
+        }
+        .value-prop .path-card h3 {
+            font-family: var(--heading-font);
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+        .value-prop .path-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .value-prop .path-card ul li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+        }
+        .value-prop .path-card ul li::before {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+        }
+        .path-struggle {
+            background-color: #fff5f5;
+            border: 1px solid #fed7d7;
+        }
+        .path-struggle h3 { color: #c53030; }
+        .path-struggle ul li::before { content: '❌'; }
+
+        .path-pro {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+        }
+        .path-pro h3 { color: #2f855a; }
+        .path-pro ul li::before { content: '✅'; }
+
+        .final-cta {
+            background-color: var(--secondary-light);
+            text-align: center;
+        }
+        .guarantee-box {
+            border: 2px dashed var(--accent-primary);
+            padding: 40px;
+            max-width: 700px;
+            margin: 60px auto 0 auto;
+            border-radius: 12px;
+        }
+        .guarantee-box h3 {
+            font-family: var(--heading-font);
+            color: var(--primary-dark);
+            margin-top: 0;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--secondary-dark);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .section h2 { font-size: 2.2rem; }
+            .value-prop { grid-template-columns: 1fr; }
+            .social-proof .logos { flex-wrap: wrap; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Your Books Are Best-Sellers. Does Your Website Look Like It?</h1>
+            <p class="sub-headline">Stop letting a generic, amateur website kill your book sales and sabotage your career. AuthorPro is the 5-minute fix that transforms your author site into an automated sales machine.</p>
+            <a href="#pricing" class="cta-button">Start Selling Like a Pro &rarr;</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="social-proof">
+            <div class="container">
+                <p style="text-transform: uppercase; letter-spacing: 2px; color: var(--text-secondary); margin-bottom: 30px;">Trusted By Professional Authors Published With</p>
+                <div class="logos">
+                    <!-- Placeholder logos for authority -->
+                    <img src="https://via.placeholder.com/150x40/000/FFF?text=Penguin" alt="Penguin Random House">
+                    <img src="https://via.placeholder.com/150x40/000/FFF?text=Hachette" alt="Hachette Book Group">
+                    <img src="https://via.placeholder.com/150x40/000/FFF?text=Macmillan" alt="Macmillan Publishers">
+                    <img src="https://via.placeholder.com/150x40/000/FFF?text=Simon+Schuster" alt="Simon & Schuster">
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2>Your Website Is Costing You Money. Here's Why.</h2>
+                <p class="section-subtitle">You have two paths. One is a dead end. The other is a superhighway to a thriving author career. Which path are you on?</p>
+                <div class="value-prop">
+                    <div class="path-card path-struggle">
+                        <h3>Path 1: The Struggling Author</h3>
+                        <ul>
+                            <li>Wastes 10+ hours a month fighting with a clunky, non-author theme.</li>
+                            <li>Loses readers on a slow, ugly, confusing website.</li>
+                            <li>Pays a developer $100/hr for "updates" that take 15 minutes.</li>
+                            <li>Feels embarrassed to share their website link on podcasts.</li>
+                            <li>Misses out on sales, subscribers, and opportunities. Daily.</li>
+                        </ul>
+                    </div>
+                    <div class="path-card path-pro">
+                        <h3>Path 2: The AuthorPro Author</h3>
+                        <ul>
+                            <li>Launches a stunning, professional website in under an hour.</li>
+                            <li>Captures new readers and sales while they sleep.</li>
+                            <li>Updates their own site instantly, for free, with zero stress.</li>
+                            <li>Confidently promotes a brand they're proud of.</li>
+                            <li>Focuses on what they do best: writing incredible books.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-light">
+            <div class="container">
+                <h2>The Unfair Advantage for Modern Authors</h2>
+                <p class="section-subtitle">AuthorPro isn't just a "pretty theme." It's a suite of powerful, dead-simple tools designed to grow your career.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="icon">📖</div>
+                        <h3>Your 24/7 Virtual Bookstore</h3>
+                        <p>Create gorgeous, high-converting pages for every book you've written. Add covers, descriptions, and direct purchase links to all major retailers. Turn casual visitors into loyal buyers.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">✨</div>
+                        <h3>A Custom Site, No $5,000 Invoice</h3>
+                        <p>Our revolutionary Style Engine gives you total control. Change every font, color, and background with a single click. Create a unique, premium-looking site that perfectly matches your author brand.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">📢</div>
+                        <h3>Sell Out Your Next Event</h3>
+                        <p>From local book signings to international tours, the built-in Events Manager makes promoting your appearances effortless. Keep your fans in the loop and pack the house every time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="final-cta">
+            <div class="container">
+                <h2>It's Time to Make a Choice.</h2>
+                <p class="section-subtitle">You can keep struggling, or you can invest in the single most powerful tool for your author career. If AuthorPro sells just FIVE extra books for you, it has paid for itself. Every sale after that is pure profit in your pocket.</p>
+
+                <a href="#" class="cta-button">Claim Your Professional Author Site for $79</a>
+
+                <div class="guarantee-box">
+                    <h3>The "Sell More Books" Guarantee</h3>
+                    <p>We are so confident that AuthorPro will become an invaluable asset to your career that we offer a 100% risk-free guarantee. If you don't feel AuthorPro has given you the tools to impress readers and increase sales within 30 days, we will give you a full refund. No questions, no hoops, no hassle.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 AuthorPro Themes. The choice is obvious. It's time to invest in yourself.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
