@@ -283,15 +283,31 @@ function authorpro_homepage_section_backgrounds() {
         $background_type = get_theme_mod( "authorpro_{$section}_background_type", 'none' );
         $selector = isset( $section_class_map[ $section ] ) ? $section_class_map[ $section ] : '';
 
-        if ( empty( $selector ) || 'none' === $background_type ) {
+        if ( empty( $selector ) ) {
             continue;
         }
 
         $style = '';
+
+        // Special handling for hero section
+        if ( 'hero' === $section ) {
+            if ( 'none' === $background_type ) {
+                $styles .= ".hero-overlay { background: none !important; }";
+                continue;
+            }
+            if ( 'color' === $background_type ) {
+                $selector = '.hero-overlay';
+            }
+        }
+
+        if ( 'none' === $background_type ) {
+            continue;
+        }
+
         if ( 'color' === $background_type ) {
             $color = get_theme_mod( "authorpro_{$section}_background_color" );
             if ( $color ) {
-                $style = "background-color: {$color};";
+                $style = "background: {$color};";
             }
         } elseif ( 'image' === $background_type ) {
             $image = get_theme_mod( "authorpro_{$section}_background_image" );
